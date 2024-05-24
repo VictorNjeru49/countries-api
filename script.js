@@ -66,18 +66,14 @@ document.getElementById('darkMode').addEventListener('click', function() {
     var button = this;
 
     if (body.classList.contains('darkMode')) {
-        body.classList.remove('darkMode');
-        body.classList.add('light-mode');
-        button.textContent = 'Dark Mode';
+        body.style.backgroundColor ="#FFFFFF";
     } else {
-        body.classList.remove('light-mode');
-        body.classList.add('darkMode');
-        button.textContent = 'Light Mode';
+        body.style.backgroundColor ="#1a2127";
     }
-});
+});gi
 
 document.getElementById('back').addEventListener('click', function() {
-    document.getElementById('country-detail').style.display = 'none';
-    document.getElementById('country-list').style.display = 'block';
+    document.getElementById('countryCard').style.display = 'none';
+    document.getElementById('country').style.display = 'block';
 });
 

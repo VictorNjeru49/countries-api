@@ -16,6 +16,9 @@ header {
     padding: 15px;
 }
 
+body{
+    background-color: #1a2127;
+}
 header h1 {
     margin: 0;
     font-size: 25px;
@@ -38,7 +41,8 @@ button {
 
 .searchOption input, .searchOption select{
     padding: 0.5rem;
-
+    background-color: rgb(54, 49, 49);
+    color: white;
     border-radius: 5px;
     border: 2px solid rgba(0, 0, 0, 0.7);
 }
@@ -128,13 +132,6 @@ button {
 }
 
 
-
-body {
-    font-family: Arial, sans-serif;
-    
-    transition: background-color 0.3s, color 0.3s;
-}
-
 #darkMode {
     background-color: #121212;
     color: #ffffff;
@@ -157,6 +154,9 @@ body {
 }
 
 .screen {
+    display: none;
+}
+.content {
     display: none;
 }
 
