@@ -36,10 +36,11 @@ function displyCountries(countries) {
             </div>
         `;
         countryCard.addEventListener('click', () => {
-            window.location.href = `detail.html?name=${country.name.common}`;
+            window.location.href = `displayCountryDetail(details)`;
         });
         countriesContainer.appendChild(countryCard);
     });
+    
 
     //to use the country search box
     searchInput.addEventListener('input', () => {
@@ -83,11 +84,52 @@ document.getElementById('darkMode').addEventListener('click', function() {
     }
 });
 
-document.getElementById('back').addEventListener('click', function() {
+
+
+const details = document.getElementById('countryDetails');
+
+function displayCountryDetail(){
+    details.style.display = 'flex';
+    details.style.flexDirection = 'row';
+    countriesContainer.style.display = 'none';
+    searchInput.style.display = 'none';
+    regions.style.display = 'none';
     
-    if (countryCard.checked) {
-        details.style.display = "none";
-    }
-   countryCard.style.display = 'none';
-    country.style.display = 'flex';
-});
+
+    details.innerHTML = `
+        <button id="back">Back</button>
+        <div class="second">
+            <img src="${country.flags.png}" alt="${country.name} Flag">
+            <h2>${country.name}</h2>
+            <p>Native Name: ${country.name.nativeName ? Object.values(country.name.nativeName)[0].common : country.name}</p>
+            <p>Population: ${country.population.toLocaleString()}</p>
+            <p>Region: ${country.region}</p>
+            <p>Sub Region: ${country.subregion}</p>
+            <p>Capital: ${country.capital ? country.capital[0] : 'N/A'}</p>
+            <p>Top Level Domain: ${country.tld}</p>
+            <p>Currencies: ${country.currencies ? Object.values(country.currencies).map(currency => currency.name).join(', ') : 'N/A'}</p>
+            <p>Languages: ${country.languages ? Object.values(country.languages).join(', ') : 'N/A'}</p>
+            <p>Border Countries: ${country.borders ? country.borders.map(border => `
+            <button class="border-btn" data-border="${border}">${border}</button>`).join(' ') : 'N/A'}</p>
+        </div>
+    `;
+
+    document.querySelectorAll('.border-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            window.location.href = `detail.html?name=${encodeURIComponent(button.getAttribute('data-border'))}`;
+        });
+    });
+
+    document.getElementById('back').addEventListener('click', () => {
+        countriesContainer.style.display = 'flex';
+        details.style.display = 'none';
+    });
+}
+
+
+
+
+
+
+
+
