@@ -1,4 +1,3 @@
-
 const countriesContainer = document.getElementById('country'); 
 const searchInput = document.getElementById('search');
 const regions = document.getElementById('regionsFilter');
@@ -6,6 +5,7 @@ const darkMode = document.getElementById('darkMode');
 
 let countriesData = [];
 
+// Fetch data from JSON file
 fetch('data.json')
     .then(response => {
         if (!response.ok) {
@@ -15,13 +15,14 @@ fetch('data.json')
     })
     .then(data => {
         countriesData = data;
-        displyCountries(countriesData);
+        displayCountries(countriesData);
     })
     .catch(error => {
         console.error('Errors:', error);
     });
 
-function displyCountries(countries) {
+// Display countries
+function displayCountries(countries) {
     countriesContainer.innerHTML = '';
     countries.forEach(country => {
         const countryCard = document.createElement('div');
@@ -36,38 +37,34 @@ function displyCountries(countries) {
             </div>
         `;
         countryCard.addEventListener('click', () => {
-            window.location.href = `displayCountryDetail(details)`;
+            displayCountryDetail(country);
         });
         countriesContainer.appendChild(countryCard);
     });
-    
 
-    //to use the country search box
+    // Search box functionality
     searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.toLowerCase('search');
+        const searchTerm = searchInput.value.toLowerCase();
         const filteredCountries = countriesData.filter(country => country.name.toLowerCase().includes(searchTerm));
-        displyCountries(filteredCountries);
+        displayCountries(filteredCountries);
     });
 
-    //to filter countries
-    const regions=document.getElementById('regionFilter')
-    regions.addEventListener('change', () => {
-        const selecte = regions.value;
-        if (selecte === 'all') {
-            displyCountries(countriesData);
+    // Filter countries by region
+    regionFilter.addEventListener('change', (e) => {
+        const selectedRegion = e.target.value;
+        if (selectedRegion === 'all') {
+            displayCountries(countriesData);
         } else {
-            const filteredCountries = countriesData.filter(country => country.region === selecte);
-            displyCountries(filteredCountries);
+            const filteredCountries = countriesData.filter(country => 
+                country.region === selectedRegion
+            );
+            displayCountries(filteredCountries);
         }
     });
-    
-    
 }
 
-
-
-//change the darkmode option to light mode
-document.getElementById('darkMode').addEventListener('click', function() {
+// Toggle dark mode
+darkMode.addEventListener('click', function() {
     var body = document.body;
     var button = this;
 
@@ -75,26 +72,24 @@ document.getElementById('darkMode').addEventListener('click', function() {
         body.classList.remove('darkMode');
         body.classList.add('light-mode');
         button.textContent = 'Dark Mode';
-        body.style.backgroundColor ="rgb(169, 157, 157)";
+        body.style.backgroundColor = "rgb(169, 157, 157)";
     } else {
         body.classList.remove('light-mode');
         body.classList.add('darkMode');
-        button.textContent = 'Dark Mode';
-        body.style.backgroundColor ="#1a2127";
+        button.textContent = 'Light Mode';
+        body.style.backgroundColor = "#1a2127";
     }
 });
 
-
-
-const details = document.getElementById('countryDetails');
-
-function displayCountryDetail(){
+// Display country details
+function displayCountryDetail(country) {
+    const details = document.getElementById('countryDetails');
     details.style.display = 'flex';
     details.style.flexDirection = 'row';
     countriesContainer.style.display = 'none';
-    searchInput.style.display = 'none';
-    regions.style.display = 'none';
     
+    
+
 
     details.innerHTML = `
         <button id="back">Back</button>
@@ -116,20 +111,16 @@ function displayCountryDetail(){
 
     document.querySelectorAll('.border-btn').forEach(button => {
         button.addEventListener('click', () => {
-            window.location.href = `detail.html?name=${encodeURIComponent(button.getAttribute('data-border'))}`;
+            const borderCountry = countriesData.find(c => c.alpha3Code === button.getAttribute('data-border'));
+            displayCountries(countries);
         });
     });
 
     document.getElementById('back').addEventListener('click', () => {
-        countriesContainer.style.display = 'flex';
+        countriesContainer.style.display = 'grid';
         details.style.display = 'none';
+        searchInput.style.display = 'flex';
+        regions.style.display = 'flex';
     });
+
 }
-
-
-
-
-
-
-
-

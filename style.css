@@ -153,12 +153,44 @@ button {
     #darkMode{
         font-size: 10px;
     }
+    .second{
+        width: 80%;
+        margin: 10px auto;
+        margin-bottom: 500px;
+    }
+    .second img{
+        width: 230px;
+        height: max-content;
+    }
 }
 
 
 #darkMode{
     background-color: #121212;
     color: #ffffff;
+}
+#countryDetails{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.second{
+    background-color: hsl(209, 23%, 22%);
+    color: white;
+    margin-top: 10px auto;
+    width: 60%;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+#back{
+    width: 100px;
+    height: fit-content;
+    margin: 2rem;
+    background-color: #363232;
 }
 
 .light-mode {
